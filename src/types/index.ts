@@ -3,6 +3,8 @@ export interface ChapterMeta {
   id: string        // e.g. "chapter-1"
   number: number    // 1–5
   title: string     // e.g. "Introduction and Goals of the Firm"
+  shortTitle: string // e.g. "Firm Goals" (two words for sidebar)
+  firstSectionId: string
   topics: TopicMeta[]
 }
 

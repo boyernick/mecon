@@ -1,24 +1,12 @@
-import { notFound } from 'next/navigation'
-import { getChapterContent } from '@/data/guide-content'
-import ChapterContent from '@/components/guide/ChapterContent'
-
-interface Props {
-  params: { chapterId: string }
-}
+import { redirect, notFound } from 'next/navigation'
+import { chapters } from '@/data/chapters'
 
 export function generateStaticParams() {
-  return [
-    { chapterId: 'chapter-1' },
-    { chapterId: 'chapter-2' },
-    { chapterId: 'chapter-3' },
-    { chapterId: 'chapter-4' },
-    { chapterId: 'chapter-5' },
-  ]
+  return chapters.map((c) => ({ chapterId: c.id }))
 }
 
-export default function ChapterPage({ params }: Props) {
-  const chapter = getChapterContent(params.chapterId)
+export default function ChapterIndexPage({ params }: { params: { chapterId: string } }) {
+  const chapter = chapters.find((c) => c.id === params.chapterId)
   if (!chapter) notFound()
-
-  return <ChapterContent chapter={chapter} />
+  redirect(`/guide/${chapter.id}/${chapter.firstSectionId}`)
 }
