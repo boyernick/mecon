@@ -15,7 +15,8 @@ export default function Home() {
   );
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  const chapter = chapters.find((ch) => ch.id === activeChapterId) ?? chapters[0];
+  const chapter =
+    chapters.find((ch) => ch.id === activeChapterId) ?? chapters[0];
 
   const handleChapterClick = (chapterId: string) => {
     setActiveChapterId(chapterId);
@@ -23,7 +24,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-background">
+    <div className="flex h-screen flex-col bg-background text-foreground">
       <Header
         activeTab={activeTab}
         onTabChange={setActiveTab}
@@ -32,7 +33,7 @@ export default function Home() {
       <div className="flex flex-1 overflow-hidden">
         {/* Left sidebar */}
         {sidebarOpen && (
-          <aside className="hidden lg:flex w-[220px] shrink-0 flex-col border-r bg-sidebar">
+          <aside className="hidden lg:flex w-[250px] shrink-0 flex-col border-r">
             <Sidebar
               activeChapterId={activeChapterId}
               onChapterClick={handleChapterClick}
@@ -48,7 +49,7 @@ export default function Home() {
         />
 
         {/* Right sidebar - Table of Contents */}
-        <aside className="hidden xl:block w-[220px] shrink-0 border-l pl-4">
+        <aside className="hidden xl:block w-[250px] shrink-0 border-l">
           <TableOfContents
             chapter={chapter}
             activeTopicIndex={activeTopicIndex}
