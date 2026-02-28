@@ -15,20 +15,20 @@ export function TableOfContents({
   onTopicClick,
 }: TocProps) {
   return (
-    <div className="h-[calc(100vh-3.5rem)] overflow-y-auto py-8 px-6">
-      <div className="mb-3 text-[13px] font-medium text-muted-foreground">
+    <div className="sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto py-6 px-4">
+      <div className="mb-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
         On This Page
       </div>
-      <ul className="flex flex-col gap-0.5">
+      <ul className="flex flex-col border-l border-border">
         {chapter.topics.map((topic, i) => (
           <li key={topic.id}>
             <button
               onClick={() => onTopicClick(i)}
               className={cn(
-                "w-full text-left rounded-[6px] px-2 py-[5px] text-sm transition-colors",
+                "block w-full text-left py-1 pl-3 text-sm transition-colors -ml-px border-l",
                 i === activeTopicIndex
-                  ? "text-foreground font-medium"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "border-foreground text-foreground font-medium"
+                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground"
               )}
             >
               {topic.title}

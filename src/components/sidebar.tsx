@@ -10,21 +10,21 @@ interface SidebarProps {
 
 export function Sidebar({ activeChapterId, onChapterClick }: SidebarProps) {
   return (
-    <div className="flex h-full flex-col">
-      <nav className="flex-1 overflow-y-auto px-4 py-6">
-        <div className="mb-2 px-3 text-[13px] font-medium text-muted-foreground">
+    <div className="flex h-full flex-col text-sidebar-foreground">
+      <nav className="flex-1 overflow-y-auto px-3 py-4">
+        <div className="mb-1 px-2 text-xs font-semibold text-sidebar-foreground/70 uppercase tracking-wider">
           Chapters
         </div>
-        <ul className="flex flex-col gap-0.5">
+        <ul className="flex flex-col gap-px">
           {chapters.map((chapter) => (
             <li key={chapter.id}>
               <button
                 onClick={() => onChapterClick(chapter.id)}
                 className={cn(
-                  "flex w-full items-center rounded-[6px] px-3 py-[7px] text-sm transition-colors",
+                  "flex w-full items-center rounded-md px-2 py-1.5 text-sm transition-colors",
                   activeChapterId === chapter.id
-                    ? "bg-accent font-medium text-foreground"
-                    : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
+                    ? "bg-sidebar-accent font-medium text-sidebar-accent-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 )}
               >
                 {chapter.shortTitle}

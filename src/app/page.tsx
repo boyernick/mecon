@@ -33,7 +33,7 @@ export default function Home() {
       <div className="flex flex-1 overflow-hidden">
         {/* Left sidebar */}
         {sidebarOpen && (
-          <aside className="hidden lg:flex w-[250px] shrink-0 flex-col border-r">
+          <aside className="hidden lg:flex w-[240px] shrink-0 flex-col border-r bg-sidebar">
             <Sidebar
               activeChapterId={activeChapterId}
               onChapterClick={handleChapterClick}
@@ -42,14 +42,16 @@ export default function Home() {
         )}
 
         {/* Center content */}
-        <Content
-          chapter={chapter}
-          activeTopicIndex={activeTopicIndex}
-          onTopicChange={setActiveTopicIndex}
-        />
+        <main className="flex-1 overflow-y-auto">
+          <Content
+            chapter={chapter}
+            activeTopicIndex={activeTopicIndex}
+            onTopicChange={setActiveTopicIndex}
+          />
+        </main>
 
         {/* Right sidebar - Table of Contents */}
-        <aside className="hidden xl:block w-[250px] shrink-0 border-l">
+        <aside className="hidden xl:block w-[220px] shrink-0 border-l">
           <TableOfContents
             chapter={chapter}
             activeTopicIndex={activeTopicIndex}
