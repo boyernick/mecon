@@ -2,67 +2,39 @@
 
 import { cn } from "@/lib/utils";
 import { chapters } from "@/lib/data";
-import { ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { BookOpen } from "lucide-react";
 
 interface SidebarProps {
-  activeTopicId: string | null;
-  onTopicClick: (topicId: string) => void;
+  activeChapterId: string;
+  onChapterClick: (chapterId: string) => void;
 }
 
-export function Sidebar({ activeTopicId, onTopicClick }: SidebarProps) {
-  const [expandedChapters, setExpandedChapters] = useState<string[]>(
-    chapters.map((ch) => ch.id)
-  );
-
-  const toggleChapter = (chapterId: string) => {
-    setExpandedChapters((prev) =>
-      prev.includes(chapterId)
-        ? prev.filter((id) => id !== chapterId)
-        : [...prev, chapterId]
-    );
-  };
-
+export function Sidebar({ activeChapterId, onChapterClick }: SidebarProps) {
   return (
-    <div className="h-[calc(100vh-3.5rem)] overflow-y-auto py-6 pr-2">
-      <div className="flex flex-col gap-1">
-        {chapters.map((chapter) => {
-          const isExpanded = expandedChapters.includes(chapter.id);
-          return (
-            <div key={chapter.id}>
-              <button
-                onClick={() => toggleChapter(chapter.id)}
-                className="flex w-full items-center gap-1 rounded-md px-2 py-1 text-sm font-semibold hover:bg-accent transition-colors"
-              >
-                <ChevronRight
-                  className={cn(
-                    "h-3.5 w-3.5 shrink-0 text-muted-foreground transition-transform",
-                    isExpanded && "rotate-90"
-                  )}
-                />
-                {chapter.title}
-              </button>
-              {isExpanded && (
-                <div className="ml-3 flex flex-col border-l pl-2 mt-0.5">
-                  {chapter.topics.map((topic) => (
-                    <button
-                      key={topic.id}
-                      onClick={() => onTopicClick(topic.id)}
-                      className={cn(
-                        "w-full rounded-md px-2 py-1 text-left text-sm text-muted-foreground hover:text-foreground transition-colors",
-                        activeTopicId === topic.id &&
-                          "text-foreground font-medium"
-                      )}
-                    >
-                      {topic.title}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          );
-        })}
+    <div className="flex h-full flex-col">
+      <div className="flex h-14 items-center gap-2 border-b px-6">
+        <BookOpen className="h-[18px] w-[18px]" />
+        <span className="text-sm font-bold">Mecon</span>
       </div>
+      <nav className="flex-1 overflow-y-auto p-4">
+        <ul className="flex flex-col gap-0.5">
+          {chapters.map((chapter) => (
+            <li key={chapter.id}>
+              <button
+                onClick={() => onChapterClick(chapter.id)}
+                className={cn(
+                  "flex w-full items-center rounded-md px-3 py-2 text-sm transition-colors",
+                  activeChapterId === chapter.id
+                    ? "bg-accent text-accent-foreground font-medium"
+                    : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
+                )}
+              >
+                {chapter.shortTitle}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   );
 }
