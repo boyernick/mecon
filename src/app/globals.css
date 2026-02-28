@@ -18,6 +18,14 @@
   h1, h2, h3, h4 {
     @apply scroll-mt-20;
   }
+  ::selection {
+    background-color: black;
+    color: white;
+  }
+  ::-moz-selection {
+    background-color: black;
+    color: white;
+  }
 }
 
 

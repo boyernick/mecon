@@ -44,7 +44,7 @@ export default function ExamPage() {
   }
 
   return (
-    <main className="flex-1 min-w-0 px-8 py-10 max-w-3xl">
+    <main>
       {/* Header */}
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>

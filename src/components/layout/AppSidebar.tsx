@@ -14,6 +14,14 @@ import {
 } from '@/components/ui/sidebar'
 import { chapters } from '@/data/chapters'
 
+const numberWords: Record<number, string> = {
+  1: 'One',
+  2: 'Two',
+  3: 'Three',
+  4: 'Four',
+  5: 'Five',
+}
+
 export default function AppSidebar() {
   const pathname = usePathname()
 
@@ -39,7 +47,7 @@ export default function AppSidebar() {
                       tooltip={chapter.title}
                     >
                       <Link href={`/guide/${chapter.id}/${chapter.firstSectionId}`}>
-                        {chapter.shortTitle}
+                        Chapter {numberWords[chapter.number]}
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

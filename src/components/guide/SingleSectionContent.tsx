@@ -1,18 +1,23 @@
 import { ChapterContent, ChapterSection } from '@/types'
 import ConceptCard from './ConceptCard'
 import FormulaBlock from './FormulaBlock'
-import { Badge } from '@/components/ui/badge'
 
-const weightLabels: Record<string, string> = {
-  high: 'High Yield',
-  medium: 'Medium',
-  low: 'Low',
-}
-
-const weightVariants: Record<string, 'default' | 'secondary' | 'outline'> = {
-  high: 'default',
-  medium: 'secondary',
-  low: 'outline',
+const weightConfig: Record<string, { label: string; className: string }> = {
+  high: {
+    label: 'Very Important',
+    className:
+      'inline-flex items-center rounded-full border border-transparent bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
+  },
+  medium: {
+    label: 'Important',
+    className:
+      'inline-flex items-center rounded-full border border-transparent bg-orange-100 px-2.5 py-0.5 text-xs font-semibold text-orange-800 dark:bg-orange-900/40 dark:text-orange-300',
+  },
+  low: {
+    label: 'Not Important',
+    className:
+      'inline-flex items-center rounded-full border border-transparent bg-muted px-2.5 py-0.5 text-xs font-semibold text-muted-foreground',
+  },
 }
 
 interface Props {
@@ -21,17 +26,15 @@ interface Props {
 }
 
 export default function SingleSectionContent({ section }: Props) {
+  const badge = section.examWeight ? weightConfig[section.examWeight] : null
+
   return (
     <article>
       <div className="mb-6 flex items-center gap-3">
         <h1 id={section.id} className="text-2xl font-bold tracking-tight scroll-mt-20">
           {section.heading}
         </h1>
-        {section.examWeight && (
-          <Badge variant={weightVariants[section.examWeight]}>
-            {weightLabels[section.examWeight]}
-          </Badge>
-        )}
+        {badge && <span className={badge.className}>{badge.label}</span>}
       </div>
 
       {section.concepts?.map((concept) => (
@@ -58,7 +61,10 @@ export default function SingleSectionContent({ section }: Props) {
             <thead>
               <tr className="border-b">
                 {table.headers.map((h) => (
-                  <th key={h} className="py-2 pr-4 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  <th
+                    key={h}
+                    className="py-2 pr-4 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                  >
                     {h}
                   </th>
                 ))}
